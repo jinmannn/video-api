@@ -8,6 +8,7 @@ public class VideoApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(VideoApiApplication.class, args);
+        System.out.println("webhook test");
     }
 
 }
