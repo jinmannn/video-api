@@ -9,6 +9,7 @@ import org.springframework.web.servlet.function.ServerResponse;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -22,19 +23,19 @@ public class VideoHandler {
 
     public ServerResponse getVideo(ServerRequest serverRequest) {
         long videoIndex = Long.parseLong(serverRequest.pathVariable("videoIndex"));
-        return ServerResponse.ok().body(videoRepository.getOne(videoIndex));
+        return ServerResponse.ok().body(videoRepository.findById(videoIndex));
     }
 
     public ServerResponse putVideo(ServerRequest serverRequest) throws ServletException, IOException {
         long contentIndex = Long.parseLong(serverRequest.pathVariable("contentIndex"));
         Video video = videoRepository.save(serverRequest.body(Video.class));
-        return ServerResponse.ok().body(videoRepository.getOne(video.getVideoSequence()));
+        return ServerResponse.ok().body(videoRepository.findById(video.getVideoSequence()));
     }
 
     public ServerResponse deleteVideo(ServerRequest serverRequest) {
         long videoIndex = Long.parseLong(serverRequest.pathVariable("videoIndex"));
-        Video video = videoRepository.getOne(videoIndex);
-        videoRepository.delete(video);
+        Optional<Video> video = videoRepository.findById(videoIndex);
+        videoRepository.delete(video.orElse(null));
         return ServerResponse.ok().body(video);
     }
 }

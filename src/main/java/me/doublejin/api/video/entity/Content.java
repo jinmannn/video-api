@@ -26,4 +26,20 @@ public class Content {
         video.setContent(this);
         videos.add(video);
     }
+
+    public String getGetUrl(){
+        return "http://api-video.doublejin.me/contents/" + contentSequence;
+    }
+
+    public String getPutUrl(){
+        return "getPutUrl";
+    }
+
+    public String getPatchUrl(){
+        return "getPatchUrl";
+    }
+
+    public String getDeleteUrl(){
+        return "getDeleteUrl";
+    }
 }
