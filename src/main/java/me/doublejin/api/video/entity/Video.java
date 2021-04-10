@@ -24,5 +24,6 @@ public class Video {
     private int star;
 
     @ManyToOne
+    @Getter(value=AccessLevel.NONE)
     private Content content;
 }
