@@ -19,7 +19,8 @@ public class ToolRouter {
             //
             toolBuilder.nest(accept(MediaType.TEXT_PLAIN), textPlainBuilder -> {
                 //
-                textPlainBuilder.GET("/is-running", toolHandler::isRunning);
+                textPlainBuilder.GET("/is-running", toolHandler::isRunning)
+                        .POST("/dispatch", toolHandler::dispatch);
             });
         }).build();
     }
