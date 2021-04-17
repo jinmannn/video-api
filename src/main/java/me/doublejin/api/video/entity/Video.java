@@ -26,4 +26,20 @@ public class Video {
     @ManyToOne
     @Getter(value=AccessLevel.NONE)
     private Content content;
+
+    public String getGetUrl() {
+        return "http://api-video.doublejin.me/contents/" + content.getContentSequence() + "/videos/" + videoSequence;
+    }
+
+    public String getPutUrl() {
+        return "getPutUrl";
+    }
+
+    public String getPatchUrl() {
+        return "getPatchUrl";
+    }
+
+    public String getDeleteUrl() {
+        return "getDeleteUrl";
+    }
 }

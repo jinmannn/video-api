@@ -23,6 +23,9 @@ public class VideoHandler {
 
     public ServerResponse getVideo(ServerRequest serverRequest) {
         long videoIndex = Long.parseLong(serverRequest.pathVariable("videoIndex"));
+        if (!videoRepository.existsById(videoIndex)) {
+            return ServerResponse.notFound().build();
+        }
         return ServerResponse.ok().body(videoRepository.findById(videoIndex));
     }
 
@@ -35,6 +38,9 @@ public class VideoHandler {
     public ServerResponse deleteVideo(ServerRequest serverRequest) {
         long videoIndex = Long.parseLong(serverRequest.pathVariable("videoIndex"));
         Optional<Video> video = videoRepository.findById(videoIndex);
+        if (video.isEmpty()) {
+            return ServerResponse.notFound().build();
+        }
         videoRepository.delete(video.orElse(null));
         return ServerResponse.ok().body(video);
     }

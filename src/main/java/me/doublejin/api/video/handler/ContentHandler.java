@@ -23,6 +23,9 @@ public class ContentHandler {
 
     public ServerResponse getContent(ServerRequest serverRequest) {
         long contentIndex = Long.parseLong(serverRequest.pathVariable("contentIndex"));
+        if (!contentRepository.existsById(contentIndex)) {
+            return ServerResponse.notFound().build();
+        }
         return ServerResponse.ok().body(contentRepository.findById(contentIndex));
     }
 
@@ -34,7 +37,10 @@ public class ContentHandler {
     public ServerResponse deleteContent(ServerRequest serverRequest) {
         long contentIndex = Long.parseLong(serverRequest.pathVariable("contentIndex"));
         Optional<Content> content = contentRepository.findById(contentIndex);
-        contentRepository.delete(content.orElse(null));
+        if (content.isEmpty()) {
+            return ServerResponse.notFound().build();
+        }
+        contentRepository.delete(content.get());
         return ServerResponse.ok().body(content);
     }
 }

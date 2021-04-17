@@ -19,6 +19,8 @@ public class Content {
 
     private String name;
 
+    @Getter(value = AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     @OneToMany(mappedBy = "content")
     private Set<Video> videos;
 
@@ -27,19 +29,23 @@ public class Content {
         videos.add(video);
     }
 
-    public String getGetUrl(){
+    public String getGetUrl() {
         return "http://api-video.doublejin.me/contents/" + contentSequence;
     }
 
-    public String getPutUrl(){
+    public String getGetVideoUrl() {
+        return "http://api-video.doublejin.me/contents/" + contentSequence + "/videos";
+    }
+
+    public String getPutUrl() {
         return "getPutUrl";
     }
 
-    public String getPatchUrl(){
+    public String getPatchUrl() {
         return "getPatchUrl";
     }
 
-    public String getDeleteUrl(){
+    public String getDeleteUrl() {
         return "getDeleteUrl";
     }
 }
